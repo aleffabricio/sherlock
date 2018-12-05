@@ -2,6 +2,8 @@ package io.sherlock.service;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +17,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Buscador {
    
-   public static void main(String[] args) throws InterruptedException {
+   @PostConstruct
+   public void buscar() throws InterruptedException {
       
       System.setProperty("webdriver.gecko.driver", "C:\\selenium\\geckodriver.exe");
       System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "true");
@@ -27,7 +30,8 @@ public class Buscador {
       driver.get(site);
       
       System.out.println("Estou pesquisando no " + driver.getTitle());
-
+      System.out.println();
+      
       WebElement web = driver.findElement(By.id("strBusca"));
       web.sendKeys("x box one");
       web.submit();
@@ -35,6 +39,7 @@ public class Buscador {
       Thread.sleep(5000);
 
       System.out.println("Resultado da pesquisa: " + driver.getTitle());
+      System.out.println();
 
       List<WebElement> elementa = driver.findElements(By.className("nm-product-info"));
 
